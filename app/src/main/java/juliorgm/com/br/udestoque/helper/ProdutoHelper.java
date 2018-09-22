@@ -1,63 +1,65 @@
 package juliorgm.com.br.udestoque.helper;
 
+import android.content.Context;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-
+import juliorgm.com.br.udestoque.AddProdutoActivity;
 import juliorgm.com.br.udestoque.Produto;
 import juliorgm.com.br.udestoque.R;
 
 public class ProdutoHelper {
-    EditText campoNome;
-    EditText campoTelefone;
-    EditText campoEndereco;
-    EditText campoEmail;
-    RadioGroup campoSexo;
-    RadioButton campoSexoMasculino;
-    RadioButton campoSexoFeminino;
-    Produto produto;
+    private final EditText mCampoNome;
+    private final EditText mCampoPreco;
+    private final EditText mCampoQuantidade;
+    private final EditText mCampoFornecedor;
+    private final EditText mCampoFornecedorTelefone;
+    private final Context mContext;
+    private Produto  mProduto;
 
     public ProdutoHelper(AddProdutoActivity activity, Produto produto) {
-        this.campoNome = activity.findViewById(R.id.cadProdutoEditNome);
-        this.campoTelefone = activity.findViewById(R.id.cadProdutoEditTelefone);
-        this.campoEndereco = activity.findViewById(R.id.cadProdutoEditEndereco);
-        this.campoEmail = activity.findViewById(R.id.cadProdutoEditEmail);
-        this.campoSexo = activity.findViewById(R.id.cadProdutoRDGSexo);
-        this.campoSexoMasculino = activity.findViewById(R.id.cadProdutoRBSexoMasculino);
-        this.campoSexoFeminino = activity.findViewById(R.id.cadProdutoRBSexoFeminino);
-        this.produto = produto;
+        this.mCampoNome = activity.findViewById(R.id.editNomeProduto);
+        this.mCampoPreco = activity.findViewById(R.id.editPrecoProduto);
+        this.mCampoQuantidade = activity.findViewById(R.id.editQuantidadeProduto);
+        this.mCampoFornecedor = activity.findViewById(R.id.editFornecedor);
+        this.mCampoFornecedorTelefone = activity.findViewById(R.id.editTelefoneFornecedor);
+
+        this.mProduto = produto;
+        mContext = activity;
     }
 
     public Produto pegaProduto() {
-        if(produto==null) produto = new Produto();
+        if(mProduto==null) mProduto = new Produto();
 
-        produto.setNome(campoNome.getText().toString());
-        produto.setTelefone(campoTelefone.getText().toString());
-        produto.setEmail(campoEmail.getText().toString());
-        produto.setEndereco(campoEndereco.getText().toString());
-        switch (campoSexo.getCheckedRadioButtonId()){
-            case R.id.cadProdutoRBSexoFeminino:
-                produto.setSexo("F");
-                break;
-            case R.id.cadProdutoRBSexoMasculino:
-                produto.setSexo("M");
-                break;
-        }
+        mProduto.setmNome(mCampoNome.getText().toString());
+        mProduto.setmPreco(mCampoPreco.getText().toString());
+        mProduto.setmQuantidade(mCampoQuantidade.getText().toString());
+        mProduto.setmFonecedor(mCampoFornecedor.getText().toString());
+        mProduto.setmFornecedorTelefone(mCampoFornecedorTelefone.getText().toString());
 
-        return produto;
+        return mProduto;
     }
 
-    public void carregaCampos(Produto produto) {
-        campoNome.setText(produto.getNome());
-        campoEmail.setText(produto.getEmail());
-        campoEndereco.setText(produto.getEndereco());
-        campoTelefone.setText(produto.getTelefone());
+    public boolean validaCampos() {
 
-        if (produto.getSexo().equals("M")) {
-            campoSexoMasculino.setChecked(true);
+        if (mCampoNome.getText().toString().isEmpty()){
+            mCampoNome.setError(mContext.getText(R.string.valida_campo_nome));
+            return false;
         }
-        else if (produto.getSexo().equals("F")) {
-            campoSexoFeminino.setChecked(true);
+        if (mCampoPreco.getText().toString().isEmpty()){
+            mCampoPreco.setError(mContext.getText(R.string.valida_campo_preco));
+            return false;
         }
+        if (mCampoQuantidade.getText().toString().isEmpty()){
+            mCampoQuantidade.setError(mContext.getText(R.string.valida_campo_quantidade));
+            return false;
+        }
+        if (mCampoFornecedor.getText().toString().isEmpty()){
+            mCampoFornecedor.setError(mContext.getText(R.string.valida_campo_fornecedor));
+            return false;
+        }
+        if (mCampoFornecedorTelefone.getText().toString().isEmpty()){
+            mCampoFornecedorTelefone.setError(mContext.getText(R.string.valida_campo_fornecedor_telefone));
+            return false;
+        }
+        return true;
     }
 }

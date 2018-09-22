@@ -6,83 +6,89 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import juliorgm.com.br.udestoque.Produto;
+import juliorgm.com.br.udestoque.contract.ProdutoContract.ProdutoEntry;
 
 public class ProdutoDB extends SQLiteOpenHelper {
-    public ProdutoDB(Context context, String name) {
-        super(context, "PRODUTOS", null, 1);
+
+    private static final String DATABASE_NAME = "dbestoque.db";
+    private static final int DATABASE_VERSION = 1;
+
+    public ProdutoDB(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE PRODUTOS(idProdutos INTEGER PRIMARY KEY," +
-                "nome TEXT NOT NULL," +
-                "preco TEXT," +
-                "quantidade TEXT," +
-                "fornecedor TEXT," +
-                "telefone_forncedor TEXT)";
-        db.execSQL(sql);
+        String CREATE_TABLE_PRODUTO = "CREATE TABLE "+ ProdutoEntry.TABLE_NAME +
+                "(" + ProdutoEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                ProdutoEntry.COLUNA_NOME_PRODUTO + " TEXT NOT NULL, " +
+                ProdutoEntry.COLUNA_PRECO_PRODUTO + " TEXT NOT NULL, " +
+                ProdutoEntry.COLUNA_QUANTIDADE_PRODUTO  + " TEXT NOT NULL, " +
+                ProdutoEntry.COLUNA_NOME_FORNECEDOR + " TEXT NOT NULL, " +
+                ProdutoEntry.COLUNA_TELEFONE_FORNECEDOR + " TEXT )";
+
+        db.execSQL(CREATE_TABLE_PRODUTO);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE PRODUTOS");
+        db.execSQL("DROP TABLE IF EXISTS "+ ProdutoEntry.TABLE_NAME);
     }
 
     public void insere(Produto produto) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues dados = pegaContentValue(produto);
-        db.insert("ALUNO",null,dados);
+        db.insert(ProdutoEntry.TABLE_NAME,null,dados);
+        db.close();
     }
 
-    public ContentValues pegaContentValue(Produto produto){
+    private ContentValues pegaContentValue(Produto produto){
         ContentValues dados = new ContentValues();
-        dados.put("nome",produto.getmNome());
-        dados.put("preço",produto.getmPreço());
-        dados.put("quantidade",produto.getmQuantidade());
-        dados.put("fornecedor",produto.getmFonecedor());
-        dados.put("telefone_forncedor",produto.getmFornecedorTelefone());
+        dados.put(ProdutoEntry.COLUNA_NOME_PRODUTO,produto.getmNome());
+        dados.put(ProdutoEntry.COLUNA_PRECO_PRODUTO,produto.getmPreco());
+        dados.put(ProdutoEntry.COLUNA_QUANTIDADE_PRODUTO,produto.getmQuantidade());
+        dados.put(ProdutoEntry.COLUNA_NOME_FORNECEDOR,produto.getmFonecedor());
+        dados.put(ProdutoEntry.COLUNA_TELEFONE_FORNECEDOR,produto.getmFornecedorTelefone());
 
         return dados;
     }
 
-    public void altera(Produto produto){
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues dados = pegaContentValue(produto);
-        String[] parametro = {String.valueOf(produto.getId())};
-        int resultado = db.update("ALUNO",dados,"idProduto=?",parametro);
-
-        Log.v("ALTERA_ALUNO","Registros alterados "+ resultado);
-
-    }
-
-
     public List<Produto> buscaProdutos() {
         SQLiteDatabase db = getReadableDatabase();//Criando objeto de leitura de banco
-        Cursor cursor = db.rawQuery("select * from ALUNO",null);
+        Cursor cursor = db.rawQuery("select * from " + ProdutoEntry.TABLE_NAME,null);
         List<Produto> listaDeProdutos = new ArrayList<>();
 
         while (cursor.moveToNext()){
-            int id = cursor.getInt(cursor.getColumnIndex("idProduto"));
-            String nome = cursor.getString(cursor.getColumnIndex("nome"));
-            String preco = cursor.getString(cursor.getColumnIndex("preco"));
-            String qtde = cursor.getString(cursor.getColumnIndex("quantidade"));
-            String fornecedor = cursor.getString(cursor.getColumnIndex("fornecedor"));
-            String telefone_forncedor = cursor.getString(cursor.getColumnIndex("telefone_forncedor"));
+            int id = cursor.getInt(cursor.getColumnIndex(ProdutoEntry._ID));
+            String nome = cursor.getString(cursor.getColumnIndex(ProdutoEntry.COLUNA_NOME_PRODUTO));
+            String preco = cursor.getString(cursor.getColumnIndex(ProdutoEntry.COLUNA_PRECO_PRODUTO));
+            String qtde = cursor.getString(cursor.getColumnIndex(ProdutoEntry.COLUNA_QUANTIDADE_PRODUTO));
+            String fornecedor = cursor.getString(cursor.getColumnIndex(ProdutoEntry.COLUNA_NOME_FORNECEDOR));
+            String telefone_forncedor = cursor.getString(cursor.getColumnIndex(ProdutoEntry.COLUNA_TELEFONE_FORNECEDOR));
 
-            listaDeProdutos.add(new Produto(nome,preco,qtde,fornecedor,telefone_forncedor));
+            listaDeProdutos.add(new Produto(id,nome,preco,qtde,fornecedor,telefone_forncedor));
         }
 
+        cursor.close();
         return listaDeProdutos;
     }
 
-    public void deleta(Produto produto) {
-        SQLiteDatabase db = getWritableDatabase();
-        String[] parametro = {String.valueOf(produto.getId())};
-        db.delete("ALUNO","idProduto=?",parametro);
+    public int numeroDeRegistros(){
+        SQLiteDatabase db = getReadableDatabase();
+        try{
+            Cursor cursor = db.rawQuery("SELECT * FROM " + ProdutoEntry.TABLE_NAME,null);
+            int registros = cursor.getCount();
+            cursor.close();
+            db.close();
+            return  registros;
+        }catch (Exception e){
+            Log.e("numeroDeRegistro",e.getMessage());
+        }
+
+        db.close();
+        return 0;
     }
 }

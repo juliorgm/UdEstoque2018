@@ -2,27 +2,30 @@ package juliorgm.com.br.udestoque;
 
 public class Produto {
 
-    private String mIdProduto;
+    private int mIdProduto;
     private String mNome;
-    private String mPreço;
+    private String mPreco;
     private String mQuantidade;
     private String mFonecedor;
     private String mFornecedorTelefone;
 
-    public Produto(String mNome, String mPreço, String mQuantidade, String mFonecedor, String mFornecedorTelefone) {
+    public Produto(int idProduto, String mNome, String mPreco, String mQuantidade, String mFonecedor, String mFornecedorTelefone) {
+        this.mIdProduto = idProduto;
         this.mNome = mNome;
-        this.mPreço = mPreço;
+        this.mPreco = mPreco;
         this.mQuantidade = mQuantidade;
         this.mFonecedor = mFonecedor;
         this.mFornecedorTelefone = mFornecedorTelefone;
     }
 
+    public Produto() { }
+
     public String getmNome() {
         return mNome;
     }
 
-    public String getmPreço() {
-        return mPreço;
+    public String getmPreco() {
+        return mPreco;
     }
 
     public String getmQuantidade() {
@@ -37,7 +40,23 @@ public class Produto {
         return mFornecedorTelefone;
     }
 
-    public String getId() {
-        return mIdProduto;
+    public void setmNome(String mNome) {
+        this.mNome = mNome;
+    }
+
+    public void setmPreco(String mPreco) {
+        this.mPreco = mPreco;
+    }
+
+    public void setmQuantidade(String mQuantidade) {
+        this.mQuantidade = mQuantidade;
+    }
+
+    public void setmFonecedor(String mFonecedor) {
+        this.mFonecedor = mFonecedor;
+    }
+
+    public void setmFornecedorTelefone(String mFornecedorTelefone) {
+        this.mFornecedorTelefone = mFornecedorTelefone;
     }
 }

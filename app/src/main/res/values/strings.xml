@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">UdEstoque</string>
-    <string name="title_activity_add_produto">AddProdutoActivity</string>
+    <string name="telefone_fornecedor">Informe o número do telefone</string>
+    <string name="info_fornecedor">Informe o fornecedor</string>
+    <string name="info_quantidade">Informe a quantidade</string>
+    <string name="info_produto">Informe o nome do produto</string>
+    <string name="info_preco">Informe o preço</string>
+    <string name="add_produto">Salvar</string>
+    <string name="menu_voltar">Voltar</string>
+    <string name="cadastrar_produto">Cadastrar Produto</string>
+    <string name="produto_0">O App ainda não possui produtos cadastrados</string>
+
+    <string name="valida_campo_nome">Por favor, informe o nome do produto</string>
+    <string name="valida_campo_preco">Por favor, informe o preço do produto</string>
+    <string name="valida_campo_quantidade">Por favor, informe a quantidade do produto</string>
+    <string name="valida_campo_fornecedor">Por favor, informe o nome do fornecedor</string>
+    <string name="valida_campo_fornecedor_telefone">Por favor, informe o telefone do forncedor</string>
 </resources>
