@@ -15,4 +15,11 @@
     <string name="valida_campo_quantidade">Por favor, informe a quantidade do produto</string>
     <string name="valida_campo_fornecedor">Por favor, informe o nome do fornecedor</string>
     <string name="valida_campo_fornecedor_telefone">Por favor, informe o telefone do forncedor</string>
+
+    <string name="insere_erro">Houve um erro ao inserir o produto.</string>
+    <string name="altera_erro">Houve um erro ao editar o produto.</string>
+    <string name="menu_editar">Editar</string>
+    <string name="menu_delete">excluir</string>
+    <string name="menu_detalhes">detalhes</string>
+    <string name="imagem">Imagem</string>
 </resources>

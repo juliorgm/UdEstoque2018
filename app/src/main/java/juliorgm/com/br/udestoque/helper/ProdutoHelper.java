@@ -13,29 +13,36 @@ public class ProdutoHelper {
     private final EditText mCampoFornecedor;
     private final EditText mCampoFornecedorTelefone;
     private final Context mContext;
-    private Produto  mProduto;
 
-    public ProdutoHelper(AddProdutoActivity activity, Produto produto) {
+
+    public ProdutoHelper(AddProdutoActivity activity) {
         this.mCampoNome = activity.findViewById(R.id.editNomeProduto);
         this.mCampoPreco = activity.findViewById(R.id.editPrecoProduto);
         this.mCampoQuantidade = activity.findViewById(R.id.editQuantidadeProduto);
         this.mCampoFornecedor = activity.findViewById(R.id.editFornecedor);
         this.mCampoFornecedorTelefone = activity.findViewById(R.id.editTelefoneFornecedor);
 
-        this.mProduto = produto;
         mContext = activity;
     }
 
-    public Produto pegaProduto() {
-        if(mProduto==null) mProduto = new Produto();
+    public Produto pegaProduto(Produto produto) {
+        if(produto==null) produto = new Produto();
 
-        mProduto.setmNome(mCampoNome.getText().toString());
-        mProduto.setmPreco(mCampoPreco.getText().toString());
-        mProduto.setmQuantidade(mCampoQuantidade.getText().toString());
-        mProduto.setmFonecedor(mCampoFornecedor.getText().toString());
-        mProduto.setmFornecedorTelefone(mCampoFornecedorTelefone.getText().toString());
+        produto.setmNome(mCampoNome.getText().toString());
+        produto.setmPreco(mCampoPreco.getText().toString());
+        produto.setmQuantidade(mCampoQuantidade.getText().toString());
+        produto.setmFonecedor(mCampoFornecedor.getText().toString());
+        produto.setmFornecedorTelefone(mCampoFornecedorTelefone.getText().toString());
 
-        return mProduto;
+        return produto;
+    }
+
+    public void desativarEditTexts() {
+        mCampoNome.setEnabled(false);
+        mCampoPreco.setEnabled(false);
+        mCampoQuantidade.setEnabled(false);
+        mCampoFornecedor.setEnabled(false);
+        mCampoFornecedorTelefone.setEnabled(false);
     }
 
     public boolean validaCampos() {
@@ -61,5 +68,13 @@ public class ProdutoHelper {
             return false;
         }
         return true;
+    }
+
+    public void carregarCampos(Produto produto) {
+        mCampoNome.setText(produto.getmNome());
+        mCampoPreco.setText(produto.getmPreco());
+        mCampoQuantidade.setText(produto.getmQuantidade());
+        mCampoFornecedor.setText(produto.getmFonecedor());
+        mCampoFornecedorTelefone.setText(produto.getmFornecedorTelefone());
     }
 }

@@ -1,8 +1,15 @@
 package juliorgm.com.br.udestoque;
 
-public class Produto {
+import java.io.Serializable;
+
+public class Produto implements Serializable {
 
     private int mIdProduto;
+
+    public int getmIdProduto() {
+        return mIdProduto;
+    }
+
     private String mNome;
     private String mPreco;
     private String mQuantidade;

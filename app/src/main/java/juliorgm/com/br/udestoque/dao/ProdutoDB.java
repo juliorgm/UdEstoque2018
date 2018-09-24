@@ -38,11 +38,12 @@ public class ProdutoDB extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+ ProdutoEntry.TABLE_NAME);
     }
 
-    public void insere(Produto produto) {
+    public long insere(Produto produto) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues dados = pegaContentValue(produto);
-        db.insert(ProdutoEntry.TABLE_NAME,null,dados);
+        long resultado = db.insert(ProdutoEntry.TABLE_NAME,null,dados);
         db.close();
+        return resultado;
     }
 
     private ContentValues pegaContentValue(Produto produto){
@@ -90,5 +91,21 @@ public class ProdutoDB extends SQLiteOpenHelper {
 
         db.close();
         return 0;
+    }
+
+    public int alterar(Produto produto){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues dados = pegaContentValue(produto);
+        String[] parametro = {String.valueOf(produto.getmIdProduto())};
+        int resultado = db.update(ProdutoEntry.TABLE_NAME,dados,ProdutoEntry._ID + "=?",parametro);
+        db.close();
+        Log.v("ALTERA_ALUNO","Registros alterados "+ resultado);
+        return resultado;
+    }
+
+    public void deletar(Produto produto) {
+        SQLiteDatabase db = getWritableDatabase();
+        String[] parametro = {String.valueOf(produto.getmIdProduto())};
+        db.delete(ProdutoEntry.TABLE_NAME,ProdutoEntry._ID + "=?",parametro);
     }
 }

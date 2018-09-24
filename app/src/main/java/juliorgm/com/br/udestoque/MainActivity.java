@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerProduto;
     private ProdutoDB mProdutoDB;
     private TextView mTextMensagem;
+
+    public static final String sEditar = "editar";
+    public static final String sDetalhar = "detalhar";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerProduto.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         ProdutoAdapter adapter = new ProdutoAdapter(getApplicationContext(), mProdutoDB.buscaProdutos());
         mRecyclerProduto.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
