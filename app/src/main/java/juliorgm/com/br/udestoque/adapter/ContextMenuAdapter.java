@@ -13,11 +13,13 @@ import juliorgm.com.br.udestoque.R;
 
 public class ContextMenuAdapter extends BaseAdapter {
 
+    private Context mContext;
     private List<ContextMenuItem> mListaMenuItem;
     private LayoutInflater mInflater;
     private ViewHolder mHolder;
 
     public ContextMenuAdapter(Context mContext, List<ContextMenuItem> mListaMenuItem) {
+        this.mContext = mContext;
         this.mListaMenuItem = mListaMenuItem;
         mInflater = LayoutInflater.from(mContext);
     }
@@ -58,7 +60,7 @@ public class ContextMenuAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public static class ViewHolder{
+    private static class ViewHolder{
         private ImageView mIconeImagem;
         private TextView mTxtTextoMenu;
     }

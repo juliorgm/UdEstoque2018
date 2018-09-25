@@ -18,8 +18,6 @@ public class MainActivity extends AppCompatActivity {
     private ProdutoDB mProdutoDB;
     private TextView mTextMensagem;
 
-    public static final String sEditar = "editar";
-    public static final String sDetalhar = "detalhar";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

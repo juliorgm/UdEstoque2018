@@ -14,7 +14,6 @@ public class ProdutoHelper {
     private final EditText mCampoFornecedorTelefone;
     private final Context mContext;
 
-
     public ProdutoHelper(AddProdutoActivity activity) {
         this.mCampoNome = activity.findViewById(R.id.editNomeProduto);
         this.mCampoPreco = activity.findViewById(R.id.editPrecoProduto);
@@ -35,14 +34,6 @@ public class ProdutoHelper {
         produto.setmFornecedorTelefone(mCampoFornecedorTelefone.getText().toString());
 
         return produto;
-    }
-
-    public void desativarEditTexts() {
-        mCampoNome.setEnabled(false);
-        mCampoPreco.setEnabled(false);
-        mCampoQuantidade.setEnabled(false);
-        mCampoFornecedor.setEnabled(false);
-        mCampoFornecedorTelefone.setEnabled(false);
     }
 
     public boolean validaCampos() {

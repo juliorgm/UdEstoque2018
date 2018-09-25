@@ -8,9 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
-import com.azimolabs.maskformatter.MaskFormatter;
 import juliorgm.com.br.udestoque.dao.ProdutoDB;
 import juliorgm.com.br.udestoque.helper.ProdutoHelper;
 
@@ -32,22 +30,13 @@ public class AddProdutoActivity extends AppCompatActivity {
         mProdutoHelper = new ProdutoHelper(this);
 
         cliqueBotoes();
-        formataCampoTelefone();
 
         Intent intent = getIntent();
 
         if (intent!=null){
-            mProduto = (Produto) intent.getSerializableExtra(MainActivity.sEditar);
+            mProduto = (Produto) intent.getSerializableExtra(Utils.sEditar);
             if(mProduto != null){
                 mProdutoHelper.carregarCampos(mProduto);
-            }else {
-                mProduto = (Produto) intent.getSerializableExtra(MainActivity.sDetalhar);
-                if (mProduto!=null)
-                    {
-                        mProdutoHelper.carregarCampos(mProduto);
-                        mProdutoHelper.desativarEditTexts();
-                        findViewById(R.id.btnCadastrarProduto).setVisibility(View.INVISIBLE);
-                    }
             }
         }
     }
@@ -90,11 +79,11 @@ public class AddProdutoActivity extends AppCompatActivity {
                 if (mProdutoDB.insere(mProdutoHelper.pegaProduto(null))==-1){
                     Toast.makeText(this,R.string.insere_erro,Toast.LENGTH_LONG).show();
                 }else{
-                    RetornarParaMain();
+                    retornarParaMain();
                 }
             }else {
                 if (mProdutoDB.alterar(mProdutoHelper.pegaProduto(mProduto))==1){
-                    RetornarParaMain();
+                    retornarParaMain();
                 }else{
                     Toast.makeText(this,R.string.altera_erro,Toast.LENGTH_LONG).show();
                 }
@@ -102,14 +91,8 @@ public class AddProdutoActivity extends AppCompatActivity {
         }
     }
 
-    private void RetornarParaMain(){
+    private void retornarParaMain(){
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
-    }
-
-    private void formataCampoTelefone(){
-        EditText telefone = findViewById(R.id.editTelefoneFornecedor);
-        MaskFormatter ibanMaskFormatter = new MaskFormatter("99 99999 9999", telefone);
-        telefone.addTextChangedListener(ibanMaskFormatter);
     }
 }
