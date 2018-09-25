@@ -138,6 +138,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
     private void redirecionarParaAddActivity(Class destino,String key,Produto produto){
         Intent intent = new Intent(mContext, destino);
         intent.putExtra(key,produto);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
     }
 }

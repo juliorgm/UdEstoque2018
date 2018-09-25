@@ -2,4 +2,5 @@
 
     <dimen name="tamanho_texto_detalhe">18sp</dimen>
     <dimen name="padding_btn_mais">4dp</dimen>
+    <dimen name="detalhe_altura_text">56dp</dimen>
 </resources>

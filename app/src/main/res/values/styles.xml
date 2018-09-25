@@ -13,4 +13,9 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="detalhe_text">
+        <item name="android:layout_height">@dimen/detalhe_altura_text</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
 </resources>

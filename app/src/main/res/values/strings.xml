@@ -34,4 +34,9 @@
     <string name="nao">Não</string>
     <string name="excluir">Excluir</string>
     <string name="excluir_erro">Houve um erro ao tentar excluir o produto</string>
+    <string name="detallhe_label_produto">Produto</string>
+    <string name="detalhe_label_preco" >Preço</string>
+    <string name="detalhe_label_quantidade">Quantidade</string>
+    <string name="detalhe_label_forncedor">Fornecedor</string>
+    <string name="detalhe_label_telefone">Telefone</string>
 </resources>

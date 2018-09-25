@@ -3,6 +3,7 @@ package juliorgm.com.br.udestoque;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -72,6 +73,16 @@ public class DetalhesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 confirmarExclusao();
+            }
+        });
+
+        mNumeroFornecedor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("tel:"+mProduto.getmFornecedorTelefone());
+                Intent intent = new Intent(Intent.ACTION_DIAL,uri);
+
+                startActivity(intent);
             }
         });
     }
